@@ -1,0 +1,46 @@
+Version 1.0.0 of Pending Events by Stephen Norris begins here.
+
+"Add a phrase to test for upcoming timed events."
+
+Include (-
+[ PendingTimedEvent rule i b;
+	for (i=1: i<=(TimedEventsTable-->0): i++) {
+		if (rule == TimedEventsTable-->i) { b=i; rtrue; }
+	}
+	rfalse;
+];
+-).
+
+To decide if (R - a rule) is pending:(- (PendingTimedEvent({R})) -).
+
+Pending Events ends here.
+
+---- DOCUMENTATION ----
+
+This adds one phrase, "rule is pending" to test for upcoming timed events.
+
+Example: *  The Ducks Quacks
+	*: "The Duck Quacks"
+	
+	Include Pending Events by Stephen Norris.
+
+	Duck Pond is a room.
+	
+	When play begins:
+		The duck quacks in 2 turns from now.
+	
+	At the time when the duck quacks:
+		say "'Quack!' quacks the duck!".
+	
+	At the time when the duck is agitated:
+		The duck quacks in 2 turns from now.
+
+	Every turn:
+		if the duck quacks is pending:
+			say "The duck looks agitated. A quack is coming!";
+		otherwise:
+			say "The duck looks relaxed, for now.";
+			unless the duck is agitated is pending:
+				The duck is agitated in 2 turns from now.
+
+	test me with "z/z/z/z/z/z/z/z".
